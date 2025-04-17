@@ -9,6 +9,7 @@ TODO - Add a script to run the generate a scaffolded config.js
 To start a local development server, run:
 
 ```bash
+npm install
 ng serve --build
 ```
 
