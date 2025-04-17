@@ -1,0 +1,36 @@
+<div class="weather-card">
+    <!-- Left Column -->
+    <div class="left-col">
+      <div class="current-temp-container">
+        <div class="current-temp">
+          {{ weatherData.CurrentWeather.Temperature }}°F
+        </div>
+        <div class="weather-code-value">
+          {{ weatherData.CurrentWeather.WeatherCode }}
+        </div>
+      </div>
+      <div class="weather-block uv-index">
+        <span class="value">UV Index: {{ weatherData.CurrentWeather.Uv }}</span>
+      </div>
+    </div>
+  
+    <!-- Right Column -->
+    <div class="right-col">
+      <div class="weather-block">
+        <span class="label">High:</span>
+        <span class="value">{{ weatherData.DailyWeather.MaxTemperature }}°F</span>
+      </div>
+      <div class="weather-block">
+        <span class="label">Low:</span>
+        <span class="value">{{ weatherData.DailyWeather.MinTemperature }}°F</span>
+      </div>
+      <div class="weather-block">
+        <span class="label">Precip:</span>
+        <span class="value">{{ weatherData.DailyWeather.PrecipitationProbability }}%</span>
+      </div>
+      <div class="weather-block">
+        <span class="label">Max UV:</span>
+        <span class="value">{{ weatherData.DailyWeather.UvMax }}</span>
+      </div>
+    </div>
+  </div>

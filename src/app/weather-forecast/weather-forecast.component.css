@@ -1,0 +1,68 @@
+.weather-card {
+  max-width: 300px;  /* Adjusted width for compact view */
+  max-height: 100px;  /* Set the overall height */
+  padding: 0.5rem;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;  /* No gap between columns */
+  overflow: hidden;  /* Prevents overflow of content */
+}
+
+.left-col, .right-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.weather-block {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;  /* Smaller font size to fit within 100px */
+  line-height: 1.1;
+  margin: 0;  /* Remove margin for no vertical spacing */
+}
+
+.label {
+  color: #5f6368;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.value {
+  color: #202124;
+  font-weight: 600;
+}
+
+.right-col .label,
+.right-col .value {
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 0.7rem;  /* Smaller font size for right column */
+}
+
+.current-temp-container {
+  display: flex;
+  align-items: center;
+}
+
+.current-temp {
+  font-size: 1.5rem;  /* Reduced font size */
+  font-weight: 600;
+  text-align: left;
+  color: #202124;
+  margin-right: 0.5rem;  /* Space between temp and weather code */
+}
+
+.weather-code-value {
+  font-size: 1rem;  /* Slightly larger font */
+  color: #333333; 
+  font-weight: 500;
+}
+/* Adjust UV Index spacing to be more compact */
+.weather-block.uv-index {
+  margin-bottom: 0.2rem;  /* Reduced margin for UV Index */
+}
