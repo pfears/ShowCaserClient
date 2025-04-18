@@ -21,7 +21,7 @@ export class StravaService {
     private config: ConfigService,
     private router: Router
   ) {
-    // 🔧 Load Strava config from config service
+    // Load Strava config from config service
     const strava = this.config.settings?.strava;
     if (!strava) throw new Error('Strava config not loaded');
 
@@ -36,7 +36,7 @@ export class StravaService {
 
   
   /**
-   * 🧍‍♂️ Fetch authenticated user (athlete) profile
+   * Fetch authenticated user (athlete) profile
    */
   getAthlete(): Observable<any> {
     return this.getValidAccessToken().pipe(
@@ -49,7 +49,7 @@ export class StravaService {
   }
 
   /**
-   * 🏃‍♀️ Fetch athlete's activities (requires auth)
+   * Fetch athlete's activities (requires auth)
    */
   getActivities(): Observable<any> {
     return this.getValidAccessToken().pipe(
@@ -62,7 +62,7 @@ export class StravaService {
   }
 
   /**
-   * 🔁 Exchange authorization code for access + refresh tokens
+   * Exchange authorization code for access + refresh tokens
    * Called once, when redirected back from Strava after login
    */
   exchangeCodeForToken(code: string): Observable<any> {
@@ -82,7 +82,7 @@ export class StravaService {
   }
 
   /**
-   * 🔄 Refresh access token using the stored refresh token
+   * Refresh access token using the stored refresh token
    * Automatically called when access token expires
    */
   private refreshAccessToken(refreshToken: string): Observable<any> {
@@ -97,18 +97,18 @@ export class StravaService {
   }
 
   /**
-   * ✅ Get a valid access token
+   * Get a valid access token
    * Checks expiration, refreshes if needed, then returns it
    */
   private getValidAccessToken(): Observable<string | null> {
     const expiresAt = parseInt(sessionStorage.getItem('strava_expires_at') || '0', 10);
     const now = Math.floor(Date.now() / 1000);
 
-    // ⏳ Token is still valid
+    // Token is still valid
     if (now < expiresAt) {
       return of(sessionStorage.getItem('strava_access_token'));
     } else {
-      // 🔁 Token expired — refresh
+      // Token expired — refresh
       const refreshToken = sessionStorage.getItem('strava_refresh_token');
       if (!refreshToken) {
         this.handleAuthError();
@@ -125,7 +125,7 @@ export class StravaService {
   }
 
   /**
-   * 💾 Save auth data to sessionStorage
+   * Save auth data to sessionStorage
    * Called after login or token refresh
    */
   storeAuthData(res: any): void {
@@ -135,7 +135,7 @@ export class StravaService {
   }
 
   /**
-   * 🧹 Handle failed auth or missing token
+   * Handle failed auth or missing token
    * Clears session and routes to login
    */
   private handleAuthError(): void {
@@ -144,13 +144,13 @@ export class StravaService {
   }
 
   /**
-   * 🌐 Redirects the user to Strava’s OAuth authorization page.
+   * Redirects the user to Strava’s OAuth authorization page.
    * Should be called if no valid access token is found.
    */
   initiateOAuthFlow(): void {
     const token = sessionStorage.getItem('strava_access_token');
 
-    // ✅ Only redirect if no token is stored
+    // Only redirect if no token is stored
     if (!token) {
       const state = this.generateState(); // CSRF protection
 
@@ -162,7 +162,7 @@ export class StravaService {
   }
 
   /**
-   * 🔐 Helper method to generate a random state string
+   * Helper method to generate a random state string
    * Used to protect against CSRF attacks
    */
   private generateState(): string {
