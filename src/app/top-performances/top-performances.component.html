@@ -1,0 +1,102 @@
+<div id="BestEfforts" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">All Time Runs By Distance</h5>
+                    <div class="row">
+                      <!-- Distance Block -->
+                      <div class="col-md-4 d-flex align-items-center mb-3">
+                        <div class="fs-6 fw-bold">Five Kilometer</div>
+                      </div>
+                      <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                        <div><strong>Time:</strong> {{ AllTimeTopPerformances.FiveK?.MovingTime! | secondsToTime }}</div>
+                        <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.FiveK?.AveragePace || 'TBD' }}</div>
+                        <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.FiveK?.MaxPace || 'TBD' }}</div>
+                      </div>
+                  
+                      <div class="col-md-4 d-flex align-items-center mb-3">
+                        <div class="fs-6 fw-bold">Ten Kilometer</div>
+                      </div>
+                      <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                        <div><strong>Time:</strong> {{ AllTimeTopPerformances.TenK?.MovingTime! | secondsToTime }}</div>
+                        <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.TenK?.AveragePace || 'TBD' }}</div>
+                        <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.TenK?.MaxPace || 'TBD' }}</div>
+                      </div>
+                  
+                      <div class="col-md-4 d-flex align-items-center mb-3">
+                        <div class="fs-6 fw-bold">Half Marathon</div>
+                      </div>
+                      <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                        <div><strong>Time:</strong> {{ AllTimeTopPerformances.HalfMarathon?.MovingTime! | secondsToTime }}</div>
+                        <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.HalfMarathon?.AveragePace || 'TBD' }}</div>
+                        <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.HalfMarathon?.MaxPace || 'TBD' }}</div>
+                      </div>
+                  
+                      <div class="col-md-4 d-flex align-items-center mb-3">
+                        <div class="fs-6 fw-bold">Marathon</div>
+                      </div>
+                      <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                        <div><strong>Time:</strong> {{ AllTimeTopPerformances.Marathon?.MovingTime! | secondsToTime }}</div>
+                        <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.Marathon?.AveragePace || 'TBD' }}</div>
+                        <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.Marathon?.MaxPace || 'TBD' }}</div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card">
+                <div class="card-body mb-4">
+                    <h5 class="card-title">YTD Runs By Distance</h5>
+                    <div class="row">
+                        <!-- Distance Block -->
+                        <div class="col-md-4 d-flex align-items-center mb-3">
+                          <div class="fs-6 fw-bold">Five Kilometer</div>
+                        </div>
+                        <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                          <div><strong>Time:</strong> {{ YtdTopPerformances.FiveK?.MovingTime! | secondsToTime }}</div>
+                          <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.FiveK?.AveragePace || 'TBD' }}</div>
+                          <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.FiveK?.MaxPace || 'TBD' }}</div>
+                        </div>
+                    
+                        <div class="col-md-4 d-flex align-items-center mb-3">
+                          <div class="fs-6 fw-bold">Ten Kilometer</div>
+                        </div>
+                        <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                          <div><strong>Time:</strong> {{ YtdTopPerformances.TenK?.MovingTime! | secondsToTime }}</div>
+                          <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.TenK?.AveragePace || 'TBD' }}</div>
+                          <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.TenK?.MaxPace || 'TBD' }}</div>
+                        </div>
+                    
+                        <div class="col-md-4 d-flex align-items-center mb-3">
+                          <div class="fs-6 fw-bold">Half Marathon</div>
+                        </div>
+                        <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                          <div><strong>Time:</strong> {{ YtdTopPerformances.HalfMarathon?.MovingTime! | secondsToTime }}</div>
+                          <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.HalfMarathon?.AveragePace || 'TBD' }}</div>
+                          <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.HalfMarathon?.MaxPace || 'TBD' }}</div>
+                        </div>
+                    
+                        <div class="col-md-4 d-flex align-items-center mb-3">
+                          <div class="fs-6 fw-bold">Marathon</div>
+                        </div>
+                        <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
+                          <div><strong>Time:</strong> {{ YtdTopPerformances.Marathon?.MovingTime! | secondsToTime }}</div>
+                          <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.Marathon?.AveragePace || 'TBD' }}</div>
+                          <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.Marathon?.MaxPace || 'TBD' }}</div>
+                        </div>
+                      </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#BestEfforts" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#BestEfforts" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

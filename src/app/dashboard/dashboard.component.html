@@ -1,3 +1,30 @@
-<div>
-  <app-athlete></app-athlete>
+<div *ngIf="init">
+  <div class="row">
+    <app-athlete [athlete]="athlete" [weatherData]="weatherData"></app-athlete>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <!-- First third of the width -->
+      <app-athlete-stats [athleteStats]="athleteStats"></app-athlete-stats>
+    </div>
+    <div class="col-6">
+      <!-- Second third of the width -->
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Column 2</h5>
+          <p class="card-text">Content for the second third of the width.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <!-- Third third of the width -->
+      <app-top-performances [Activities]="activities"></app-top-performances>
+    </div>
+  </div>
+</div>
+<div *ngIf="!init">
+  <!-- Load Here if Data is not ready yet -->
+  <div class="spinner-grow text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 </div>

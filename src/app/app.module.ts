@@ -13,12 +13,16 @@ import { StravaAuthCallbackComponent } from './strava-auth-callback/strava-auth-
 import { AthleteComponent } from './athlete/athlete.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
+import { AthleteStatsComponent } from './athlete-stats/athlete-stats.component';
+import { AthleteRecentRunsComponent } from './athlete-recent-runs/athlete-recent-runs.component';
+import { TopPerformancesComponent } from './top-performances/top-performances.component';
+import { ActivityComponent } from './activity/activity.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     StravaAuthComponent,
     StravaAuthCallbackComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,11 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
     HttpClientModule,
     DashboardComponent,
     AthleteComponent,
-    WeatherForecastComponent
+    WeatherForecastComponent,
+    AthleteStatsComponent,
+    AthleteRecentRunsComponent,
+    TopPerformancesComponent,
+    ActivityComponent,
   ],
   providers: [
     StravaService,

@@ -5,7 +5,7 @@ import { StravaService } from '../StravaService/strava.service';
 @Component({
   selector: 'app-strava-auth-callback',
   standalone: false,
-  template: `app-strava-auth-callback.html`
+  templateUrl: './strava-auth-callback.component.html'
 })
 export class StravaAuthCallbackComponent implements OnInit {
   constructor(

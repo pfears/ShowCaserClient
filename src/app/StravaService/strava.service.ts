@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../Helpers/config.service';
-import { catchError, Observable, of, switchMap } from 'rxjs';
+import { catchError, map, Observable, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,6 +15,8 @@ export class StravaService {
   private tokenUrl: string;
   private apiBaseUrl: string;
   private scopes: string;
+  
+  private AthleteId!: number;
 
   constructor(
     private http: HttpClient,
@@ -48,6 +50,16 @@ export class StravaService {
     );
   }
 
+  getAthleteStats(athleteId: number):Observable<any>{
+    return this.getValidAccessToken().pipe(
+      switchMap((token) => {
+        if (!token) return of(null);
+        const headers = { Authorization: `Bearer ${token}` };
+        return this.http.get(`${this.apiBaseUrl}/athletes/${athleteId}/stats`, { headers });
+      })
+    );
+  }
+
   /**
    * Fetch athlete's activities (requires auth)
    */
@@ -56,7 +68,45 @@ export class StravaService {
       switchMap((token) => {
         if (!token) return of(null);
         const headers = { Authorization: `Bearer ${token}` };
-        return this.http.get(`${this.apiBaseUrl}/athlete/activities`, { headers });
+        return this.http.get(`${this.apiBaseUrl}/athlete/activities?`, { headers });
+      })
+    );
+  }
+
+  // Function to fetch all activities with pagination keeps calling until no more to get
+  getAllActivities(): Observable<any[]> {
+    return this.getValidAccessToken().pipe(
+      switchMap((token) => {
+        if (!token) return of([]); // If no token, return empty array
+        const headers = { Authorization: `Bearer ${token}` };
+        let activities: any[] = [];
+        let page = 1; // Page starts at 1
+        const perPage = 200; // Max Strava allows
+
+        const fetchPage = (page: number): Observable<any[]> => {
+          return this.http.get<any[]>(`${this.apiBaseUrl}/athlete/activities`, {
+            headers,
+            params: { page: `${page}`, per_page: `${perPage}` },
+          }).pipe(
+            catchError(() => of([])) // Return empty array on error to prevent app from breaking
+          );
+        };
+
+        return new Observable<any[]>((observer) => {
+          const fetchAllActivities = () => {
+            fetchPage(page).subscribe((response) => {
+              if (response.length === 0) {
+                observer.next(activities); // No more activities
+                observer.complete(); // Complete the observable
+              } else {
+                activities = [...activities, ...response];
+                page++;
+                fetchAllActivities(); // Fetch next page
+              }
+            });
+          };
+          fetchAllActivities(); // Start fetching the first page
+        });
       })
     );
   }

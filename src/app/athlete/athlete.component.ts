@@ -1,35 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { StravaService } from '../StravaService/strava.service';
 import { Router } from '@angular/router';
 import { Athlete } from './athlete.model';
 import { WeatherForecastComponent } from "../weather-forecast/weather-forecast.component";
+import { NgIf } from '@angular/common';
+import { Weather } from '../weather-forecast/weather.model';
 
 @Component({
   selector: 'app-athlete',
   templateUrl: './athlete.component.html',
   styleUrl: './athlete.component.css',
-  imports: [WeatherForecastComponent]
+  imports: [WeatherForecastComponent, NgIf]
 })
 export class AthleteComponent implements OnInit {
 
-  athlete!: Athlete;
+  @Input() athlete!: Athlete;
+  @Input() weatherData!: Weather;
 
-  constructor(
-    private stravaService: StravaService,
-    private router: Router,
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    // Fetch athlete data once the component is initialized
-    this.stravaService.getAthlete().subscribe({
-      next: (data) => {
-        this.athlete = data;
-      },
-      error: (err) => {
-        console.error('Error fetching athlete data:', err);
-        this.router.navigate(['/login']);  // Redirect if failed
-      }
-    });
+    
   }
 
 }
