@@ -16,8 +16,8 @@ export class StravaAuthComponent implements OnInit {
     const code = this.route.snapshot.queryParamMap.get('code');
     const state = this.route.snapshot.queryParamMap.get('state');
 
-    console.log('✅ Auth Code:', code);
-    console.log('🔒 Returned state:', state);
+    console.log('Auth Code:', code);
+    console.log('Returned state:', state);
 
     if (code) {
       this.stravaService.exchangeCodeForToken(code).subscribe({
@@ -31,7 +31,7 @@ export class StravaAuthComponent implements OnInit {
         }
       });
     } else {
-      console.warn('❌ No code in query params');
+      console.warn('No code in query params');
       this.router.navigate(['/login']);
     }
   }
