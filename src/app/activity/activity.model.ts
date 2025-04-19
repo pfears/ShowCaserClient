@@ -16,7 +16,7 @@ export interface IActivity {
       summary_polyline: string;
       resource_state: number;
     };
-    //Splits: any[]; //This may contain what I need to top performances
+    Splits: any[]; //Returned from DetailedActivity
   }
 
 export class Activity implements IActivity {
@@ -34,7 +34,7 @@ export class Activity implements IActivity {
     MaxPace: string;
     ElevationGain: number;
     Map: { id: string; summary_polyline: string; resource_state: number; };
-    //Splits: any[];
+    Splits: any[];
   
     constructor(data: any) {
       this.ActivityId = data.id;
@@ -50,8 +50,9 @@ export class Activity implements IActivity {
       this.MaxPace = this.convertSpeedToMileTime(data.max_speed);
       this.ElevationGain = this.getFeetFromMeters(data.total_elevation_gain);
       this.Map = data.map;
-      //this.Splits = data.splits_metric;
+      this.Splits = data.splits_metric;
     }
+    
 
     convertSpeedToMileTime(metersPerSecond: number): string {
       const metersInMile = 1609.34;

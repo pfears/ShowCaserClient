@@ -60,6 +60,15 @@ export class StravaService {
     );
   }
 
+  getActivity(activityId: number): Observable<any> {
+    return this.getValidAccessToken().pipe(
+      switchMap((token) => {
+        if (!token) return of(null);
+        const headers = { Authorization: `Bearer ${token}` };
+        return this.http.get(`${this.apiBaseUrl}/activities/${activityId}?include_all_efforts=true`, { headers });
+      })
+    );
+  }
   /**
    * Fetch athlete's activities (requires auth)
    */
@@ -75,6 +84,14 @@ export class StravaService {
 
   // Function to fetch all activities with pagination keeps calling until no more to get
   getAllActivities(): Observable<any[]> {
+    // USE TEST DATA
+    const USE_TEST: boolean = true;
+    if (USE_TEST) {
+      console.log("USING TEST FILE DATA");
+      return this.http.get<any[]>('/assets/activitiesData.json').pipe(
+        catchError(() => of([]))
+      );
+    }
     return this.getValidAccessToken().pipe(
       switchMap((token) => {
         if (!token) return of([]); // If no token, return empty array

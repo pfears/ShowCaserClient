@@ -15,22 +15,30 @@ export class StravaAuthCallbackComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('authCompleted')) {
+      // Avoid running the token exchange logic again if already completed
+      return;
+    }
     const code = this.route.snapshot.queryParamMap.get('code');
 
     if (code) {
       this.stravaService.exchangeCodeForToken(code).subscribe({
         next: (res: any) => {
           this.stravaService.storeAuthData(res);
-          this.router.navigate(['/dashboard']);
+          sessionStorage.setItem('authCompleted', 'true');
+          // Prevent unnecessary navigation if already on dashboard
+          if (this.router.url !== '/dashboard') {
+            console.log("Navigating To Dash");
+            this.router.navigate(['/dashboard']);
+          }
         },
         error: (err: any) => {
           console.error('Token exchange failed:', err);
-          //this.router.navigate(['/login']);
         }
       });
     } else {
       console.warn('No code found in query params');
-      this.router.navigate(['/login']);
+      //this.router.navigate(['/login']);
     }
   }
 }

@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
         this.athlete = athlete;
         this.weatherData = weatherData;
         this.activities = mapListToClass(Activity, activities);
-
         // Now that athlete is available, get stats
         this.stravaService.getAthleteStats(athlete.id).subscribe({
           next: (athleteStats: { all_run_totals: any; ytd_run_totals: any }) => {

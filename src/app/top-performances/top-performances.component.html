@@ -6,8 +6,11 @@
                     <h5 class="card-title">All Time Runs By Distance</h5>
                     <div class="row">
                       <!-- Distance Block -->
-                      <div class="col-md-4 d-flex align-items-center mb-3">
-                        <div class="fs-6 fw-bold">Five Kilometer</div>
+                      <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                          <div class="fs-8 fw-bold">Five Kilometer</div>
+                          <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!AllTimeTopPerformances.FiveK" (click)="openPbModal(AllTimeTopPerformances.FiveK!)">View</button>
+                        </div>
                       </div>
                       <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                         <div><strong>Time:</strong> {{ AllTimeTopPerformances.FiveK?.MovingTime! | secondsToTime }}</div>
@@ -15,8 +18,11 @@
                         <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.FiveK?.MaxPace || 'TBD' }}</div>
                       </div>
                   
-                      <div class="col-md-4 d-flex align-items-center mb-3">
-                        <div class="fs-6 fw-bold">Ten Kilometer</div>
+                      <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                          <div class="fs-8 fw-bold">Ten Kilometer</div>
+                          <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!AllTimeTopPerformances.TenK" (click)="openPbModal(AllTimeTopPerformances.TenK!)">View</button>
+                        </div>
                       </div>
                       <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                         <div><strong>Time:</strong> {{ AllTimeTopPerformances.TenK?.MovingTime! | secondsToTime }}</div>
@@ -24,8 +30,11 @@
                         <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.TenK?.MaxPace || 'TBD' }}</div>
                       </div>
                   
-                      <div class="col-md-4 d-flex align-items-center mb-3">
-                        <div class="fs-6 fw-bold">Half Marathon</div>
+                      <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                          <div class="fs-8 fw-bold">Half Marathon</div>
+                          <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!AllTimeTopPerformances.HalfMarathon" (click)="openPbModal(AllTimeTopPerformances.HalfMarathon!)">View</button>
+                        </div>
                       </div>
                       <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                         <div><strong>Time:</strong> {{ AllTimeTopPerformances.HalfMarathon?.MovingTime! | secondsToTime }}</div>
@@ -33,8 +42,11 @@
                         <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.HalfMarathon?.MaxPace || 'TBD' }}</div>
                       </div>
                   
-                      <div class="col-md-4 d-flex align-items-center mb-3">
-                        <div class="fs-6 fw-bold">Marathon</div>
+                      <div class="col-md-4 mb-3">
+                        <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                          <div class="fs-8 fw-bold">Marathon</div>
+                          <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!AllTimeTopPerformances.Marathon" (click)="openPbModal(AllTimeTopPerformances.Marathon!)">View</button>
+                        </div>
                       </div>
                       <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                         <div><strong>Time:</strong> {{ AllTimeTopPerformances.Marathon?.MovingTime! | secondsToTime }}</div>
@@ -51,8 +63,11 @@
                     <h5 class="card-title">YTD Runs By Distance</h5>
                     <div class="row">
                         <!-- Distance Block -->
-                        <div class="col-md-4 d-flex align-items-center mb-3">
-                          <div class="fs-6 fw-bold">Five Kilometer</div>
+                        <div class="col-md-4 mb-3">
+                          <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                            <div class="fs-8 fw-bold">Five Kilometer</div>
+                            <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!YtdTopPerformances.FiveK" (click)="openPbModal(YtdTopPerformances.FiveK!)">View</button>
+                          </div>
                         </div>
                         <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                           <div><strong>Time:</strong> {{ YtdTopPerformances.FiveK?.MovingTime! | secondsToTime }}</div>
@@ -60,8 +75,11 @@
                           <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.FiveK?.MaxPace || 'TBD' }}</div>
                         </div>
                     
-                        <div class="col-md-4 d-flex align-items-center mb-3">
-                          <div class="fs-6 fw-bold">Ten Kilometer</div>
+                        <div class="col-md-4 mb-3">
+                          <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                            <div class="fs-8 fw-bold">Ten Kilometer</div>
+                            <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!YtdTopPerformances.TenK" (click)="openPbModal(YtdTopPerformances.TenK!)">View</button>
+                          </div>
                         </div>
                         <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                           <div><strong>Time:</strong> {{ YtdTopPerformances.TenK?.MovingTime! | secondsToTime }}</div>
@@ -69,8 +87,11 @@
                           <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.TenK?.MaxPace || 'TBD' }}</div>
                         </div>
                     
-                        <div class="col-md-4 d-flex align-items-center mb-3">
-                          <div class="fs-6 fw-bold">Half Marathon</div>
+                        <div class="col-md-4 mb-3">
+                          <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                            <div class="fs-8 fw-bold">Half Marathon</div>
+                            <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!YtdTopPerformances.HalfMarathon" (click)="openPbModal(YtdTopPerformances.HalfMarathon!)">View</button>
+                          </div>
                         </div>
                         <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                           <div><strong>Time:</strong> {{ YtdTopPerformances.HalfMarathon?.MovingTime! | secondsToTime }}</div>
@@ -78,8 +99,11 @@
                           <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.HalfMarathon?.MaxPace || 'TBD' }}</div>
                         </div>
                     
-                        <div class="col-md-4 d-flex align-items-center mb-3">
-                          <div class="fs-6 fw-bold">Marathon</div>
+                        <div class="col-md-4 mb-3">
+                          <div class="d-flex flex-column align-items-start justify-content-center h-100">
+                            <div class="fs-8 fw-bold">Marathon</div>
+                            <button class="btn btn-outline-primary btn-sm mt-2" [disabled]="!YtdTopPerformances.Marathon" (click)="openPbModal(YtdTopPerformances.Marathon!)">View</button>
+                          </div>
                         </div>
                         <div class="col-md-8 d-flex flex-column justify-content-between text-muted small mb-3">
                           <div><strong>Time:</strong> {{ YtdTopPerformances.Marathon?.MovingTime! | secondsToTime }}</div>
@@ -91,12 +115,34 @@
             </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#BestEfforts" data-bs-slide="prev">
+    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#BestEfforts" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
-    </button>
+    </button> -->
     <button class="carousel-control-next" type="button" data-bs-target="#BestEfforts" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+</div>
+
+<div class="modal fade" #PbModal id="PbModal" tabindex="-1" aria-labelledby="PbModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="activityToLoad" id="PbModalLabel">{{activityToLoad.ActivityName || "Error"}}: {{activityToLoad.StartDateTimeLocal | prettyFullDate}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-activity *ngIf="activityToLoad" [activity]="activityToLoad"></app-activity>
+        <div *ngIf="!activityToLoad">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
