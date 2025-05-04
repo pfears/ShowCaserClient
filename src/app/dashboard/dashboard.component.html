@@ -1,29 +1,38 @@
-<div *ngIf="init">
+<div *ngIf="init" class="mx-3 mt-2 mb-2">
   <div class="row">
     <app-athlete [athlete]="athlete" [weatherData]="weatherData"></app-athlete>
   </div>
   <div class="row">
     <div class="col-3">
-      <!-- First third of the width -->
       <app-athlete-stats [athleteStats]="athleteStats"></app-athlete-stats>
     </div>
     <div class="col-6">
-      <!-- Second third of the width -->
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Column 2</h5>
-          <p class="card-text">Content for the second third of the width.</p>
+          <div *ngIf="tenMostRecentRuns.length > 0" id="activities" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div *ngFor="let activity of tenMostRecentRuns; let i = index" class="carousel-item" [class.active]="i === 0">
+                    <app-activity [activity]="activity"></app-activity>
+                </div>
+            </div>
+            <button class="carousel-control-prev opacity-0 position-absolute" type="button" data-bs-target="#activities" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next opacity-0 position-absolute" type="button" data-bs-target="#activities" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-3">
-      <!-- Third third of the width -->
       <app-top-performances [Activities]="activities"></app-top-performances>
     </div>
   </div>
 </div>
 <div *ngIf="!init">
-  <!-- Load Here if Data is not ready yet -->
   <div class="spinner-grow text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>

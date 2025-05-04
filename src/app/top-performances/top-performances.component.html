@@ -17,7 +17,7 @@
                         <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.FiveK?.AveragePace || 'TBD' }}</div>
                         <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.FiveK?.MaxPace || 'TBD' }}</div>
                       </div>
-                  
+                      <hr class="mx-3">
                       <div class="col-md-4 mb-3">
                         <div class="d-flex flex-column align-items-start justify-content-center h-100">
                           <div class="fs-8 fw-bold">Ten Kilometer</div>
@@ -29,7 +29,7 @@
                         <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.TenK?.AveragePace || 'TBD' }}</div>
                         <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.TenK?.MaxPace || 'TBD' }}</div>
                       </div>
-                  
+                      <hr class="mx-3">
                       <div class="col-md-4 mb-3">
                         <div class="d-flex flex-column align-items-start justify-content-center h-100">
                           <div class="fs-8 fw-bold">Half Marathon</div>
@@ -41,7 +41,7 @@
                         <div><strong>Avg Mile Pace:</strong> {{ AllTimeTopPerformances.HalfMarathon?.AveragePace || 'TBD' }}</div>
                         <div><strong>Max Mile Pace:</strong> {{ AllTimeTopPerformances.HalfMarathon?.MaxPace || 'TBD' }}</div>
                       </div>
-                  
+                      <hr class="mx-3">
                       <div class="col-md-4 mb-3">
                         <div class="d-flex flex-column align-items-start justify-content-center h-100">
                           <div class="fs-8 fw-bold">Marathon</div>
@@ -74,7 +74,7 @@
                           <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.FiveK?.AveragePace || 'TBD' }}</div>
                           <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.FiveK?.MaxPace || 'TBD' }}</div>
                         </div>
-                    
+                        <hr class="mx-3">
                         <div class="col-md-4 mb-3">
                           <div class="d-flex flex-column align-items-start justify-content-center h-100">
                             <div class="fs-8 fw-bold">Ten Kilometer</div>
@@ -86,7 +86,7 @@
                           <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.TenK?.AveragePace || 'TBD' }}</div>
                           <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.TenK?.MaxPace || 'TBD' }}</div>
                         </div>
-                    
+                        <hr class="mx-3">
                         <div class="col-md-4 mb-3">
                           <div class="d-flex flex-column align-items-start justify-content-center h-100">
                             <div class="fs-8 fw-bold">Half Marathon</div>
@@ -98,7 +98,7 @@
                           <div><strong>Avg Mile Pace:</strong> {{ YtdTopPerformances.HalfMarathon?.AveragePace || 'TBD' }}</div>
                           <div><strong>Max Mile Pace:</strong> {{ YtdTopPerformances.HalfMarathon?.MaxPace || 'TBD' }}</div>
                         </div>
-                    
+                        <hr class="mx-3">
                         <div class="col-md-4 mb-3">
                           <div class="d-flex flex-column align-items-start justify-content-center h-100">
                             <div class="fs-8 fw-bold">Marathon</div>
@@ -115,33 +115,20 @@
             </div>
         </div>
     </div>
-    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#BestEfforts" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button> -->
-    <button class="carousel-control-next" type="button" data-bs-target="#BestEfforts" data-bs-slide="next">
+    <button class="carousel-control-next opacity-0 position-absolute" type="button" data-bs-target="#BestEfforts" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
 </div>
 
-<div class="modal fade" #PbModal id="PbModal" tabindex="-1" aria-labelledby="PbModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+<!-- Put the modal here and make sure it is loaded with the propper information -->
+<!-- Modal -->
+<div class="modal fade" id="PbModal" #PbModal tabindex="-1" aria-labelledby="PbModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" *ngIf="activityToLoad" id="PbModalLabel">{{activityToLoad.ActivityName || "Error"}}: {{activityToLoad.StartDateTimeLocal | prettyFullDate}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
       <div class="modal-body">
-        <app-activity *ngIf="activityToLoad" [activity]="activityToLoad"></app-activity>
-        <div *ngIf="!activityToLoad">
-          <div class="spinner-grow text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- Pass `activity` input to child component -->
+        <app-activity [activity]="activityToLoad"></app-activity>
       </div>
     </div>
   </div>

@@ -14,7 +14,6 @@ import { AthleteComponent } from './athlete/athlete.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
 import { AthleteStatsComponent } from './athlete-stats/athlete-stats.component';
-import { AthleteRecentRunsComponent } from './athlete-recent-runs/athlete-recent-runs.component';
 import { TopPerformancesComponent } from './top-performances/top-performances.component';
 import { ActivityComponent } from './activity/activity.component';
 
@@ -33,7 +32,6 @@ import { ActivityComponent } from './activity/activity.component';
     AthleteComponent,
     WeatherForecastComponent,
     AthleteStatsComponent,
-    AthleteRecentRunsComponent,
     TopPerformancesComponent,
     ActivityComponent,
   ],

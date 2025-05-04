@@ -1,1 +1,29 @@
-<p>activity works!</p>
+<div class="row text-center fw-bold">
+    <div class="col">
+        {{activity.ActivityName}} - {{activity.StartDateTimeLocal | prettyFullDate}}
+        <hr class="mt-2" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-auto" style="max-width: 30%;">
+        <div class="col-md-12 d-flex flex-column justify-content-between text-muted small mb-2">
+            <div><strong>Run Statistics</strong></div>
+            <div><strong>Time:</strong> {{ activity.MovingTime | secondsToTime }}</div>
+            <div><strong>Distance:</strong> {{ activity.Distance }} Miles</div>
+            <div><strong>Avg Mile Pace:</strong> {{ activity.AveragePace }}</div>
+            <div><strong>Max Mile Pace:</strong> {{ activity.MaxPace }}</div>
+            <div><strong>Avg Speed:</strong> {{ activity.AverageSpeed }} Mph</div>
+            <div><strong>Max Speed:</strong> {{ activity.MaxSpeed }} Mph</div>
+            <div><strong>Elevation:</strong> {{ activity.ElevationGain }} Feet</div>
+          </div>
+    </div>
+    <!-- Vertical Line Divider -->
+    <div class="col-auto" style="max-width: 1%;">
+    <div style="width: 1px; background-color: #000; height: 100%;"></div>
+  </div>
+  <div class="col-auto" style="max-width: 69%;">
+    <!-- <div *ngIf="!activity.TrainingMachine" id="map" style="height: 500px; width: 100%;"></div> -->
+    <div *ngIf="!activity.TrainingMachine" >Place Map Here</div>
+    <div *ngIf="activity.TrainingMachine">Training Machine</div>
+  </div>
+</div>  

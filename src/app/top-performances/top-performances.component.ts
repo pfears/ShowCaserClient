@@ -29,11 +29,14 @@ export class TopPerformancesComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void {
     this.AllTimeTopPerformances = this.GetTopPerformances(false);
-    this.YtdTopPerformances = this.GetTopPerformances(true)
+    this.YtdTopPerformances = this.GetTopPerformances(true);
+    this.activityToLoad = this.AllTimeTopPerformances.FiveK!;
   }
 
   ngAfterViewInit(): void {
-    this.PbModal = new Modal(this.modalElement.nativeElement);
+    setTimeout(() => {
+      this.PbModal = new Modal(this.modalElement.nativeElement);
+    });
   }
 
   GetTopPerformances(isYtd: boolean): TopRunPerformances {

@@ -1,0 +1,5 @@
+/* activity.component.css */
+#mapId {
+    border: 2px solid #ccc;  /* Optional: Add a border around the map */
+    border-radius: 5px;       /* Optional: Round corners */
+  }

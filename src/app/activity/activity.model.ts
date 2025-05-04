@@ -11,6 +11,7 @@ export interface IActivity {
     AveragePace: string; // Time Per Mile (Calculated)
     MaxPace: string; // Time Per Mile (Calculated)
     ElevationGain: number; // In feet
+    TrainingMachine: boolean;
     Map: {
       id: string;
       summary_polyline: string;
@@ -33,7 +34,9 @@ export class Activity implements IActivity {
     AveragePace: string; // Time Per Mile (Calculated)
     MaxPace: string;
     ElevationGain: number;
+    TrainingMachine: boolean;
     Map: { id: string; summary_polyline: string; resource_state: number; };
+    DecodedMap: { xCord: number; yCord: number }[];
     Splits: any[];
   
     constructor(data: any) {
@@ -49,7 +52,9 @@ export class Activity implements IActivity {
       this.AveragePace = this.convertSpeedToMileTime(data.average_speed); // Time Per Mile (Calculated)
       this.MaxPace = this.convertSpeedToMileTime(data.max_speed);
       this.ElevationGain = this.getFeetFromMeters(data.total_elevation_gain);
+      this.TrainingMachine = data.trainer === 1 ? true : false;
       this.Map = data.map;
+      this.DecodedMap = data.trainer == 0 ? this.decodePolyline(data.map.summary_polyline) : [];
       this.Splits = data.splits_metric;
     }
     
@@ -77,4 +82,46 @@ export class Activity implements IActivity {
     getSpeedMph(speed: number): number {
       return Math.round(speed * 2.23694 * 100) / 100;; // Convert meters/second to miles per hour (2 decimal places)
     }
+
+    decodePolyline(encoded: string): { xCord: number; yCord: number }[] {
+      let index = 0;
+      const len = encoded.length;
+      let lat = 0;
+      let lng = 0;
+      const coordinates: { xCord: number; yCord: number }[] = [];
+    
+      while (index < len) {
+        let result = 0;
+        let shift = 0;
+        let b: number;
+    
+        // Decode latitude
+        do {
+          b = encoded.charCodeAt(index++) - 63;
+          result |= (b & 0x1f) << shift;
+          shift += 5;
+        } while (b >= 0x20);
+        const deltaLat = ((result & 1) ? ~(result >> 1) : (result >> 1));
+        lat += deltaLat;
+    
+        // Decode longitude
+        result = 0;
+        shift = 0;
+        do {
+          b = encoded.charCodeAt(index++) - 63;
+          result |= (b & 0x1f) << shift;
+          shift += 5;
+        } while (b >= 0x20);
+        const deltaLng = ((result & 1) ? ~(result >> 1) : (result >> 1));
+        lng += deltaLng;
+    
+        coordinates.push({
+          xCord: lat / 1e5,
+          yCord: lng / 1e5
+        });
+      }
+    
+      return coordinates;
+    }
+
   }
