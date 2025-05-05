@@ -18,6 +18,7 @@ export interface IActivity {
       resource_state: number;
     };
     Splits: any[]; //Returned from DetailedActivity
+    GearId: string;
   }
 
 export class Activity implements IActivity {
@@ -38,6 +39,7 @@ export class Activity implements IActivity {
     Map: { id: string; summary_polyline: string; resource_state: number; };
     DecodedMap: { xCord: number; yCord: number }[];
     Splits: any[];
+    GearId: string;
   
     constructor(data: any) {
       this.ActivityId = data.id;
@@ -56,6 +58,7 @@ export class Activity implements IActivity {
       this.Map = data.map;
       this.DecodedMap = data.trainer == 0 ? this.decodePolyline(data.map.summary_polyline) : [];
       this.Splits = data.splits_metric;
+      this.GearId = data.gear_id;
     }
     
 

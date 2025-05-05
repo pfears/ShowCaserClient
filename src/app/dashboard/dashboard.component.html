@@ -4,7 +4,12 @@
   </div>
   <div class="row">
     <div class="col-3">
-      <app-athlete-stats [athleteStats]="athleteStats"></app-athlete-stats>
+      <div class="row">
+        <app-athlete-stats [athleteStats]="athleteStats"></app-athlete-stats>
+      </div>
+      <div class="row">
+        <app-gear [gearList]="gear"></app-gear>
+      </div>
     </div>
     <div class="col-6">
       <div class="card">
@@ -29,6 +34,24 @@
     </div>
     <div class="col-3">
       <app-top-performances [Activities]="activities"></app-top-performances>
+    </div>
+  </div>
+  <div class="pt-3 pb-3">
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            Monthly Stats
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            Weekly Stats
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

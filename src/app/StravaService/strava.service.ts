@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../Helpers/config.service';
-import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -36,6 +36,7 @@ export class StravaService {
     this.scopes = strava.scopes;
   }
 
+  //#region Strava Endpoints
   
   /**
    * Fetch authenticated user (athlete) profile
@@ -127,6 +128,24 @@ export class StravaService {
       })
     );
   }
+
+  getGear(gearId: string): Observable<any> {
+    return this.getValidAccessToken().pipe(
+      switchMap((token) => {
+        if (!token) return of(null);
+        const headers = { Authorization: `Bearer ${token}` };
+        return this.http.get(`${this.apiBaseUrl}/gear/${gearId}`, { headers });
+      })
+    );
+  }
+  
+  getGearList(gearList: string[]): Observable<any[]> {
+    const gearObservables = gearList.map(gearId => this.getGear(gearId));
+    return forkJoin(gearObservables);
+  }
+
+  //#endregion
+  //#region Authentication Endpoints
 
   /**
    * Exchange authorization code for access + refresh tokens
@@ -221,7 +240,7 @@ export class StravaService {
     if (!token) {
       const state = this.generateState(); // CSRF protection
 
-      const authUrl = `${this.authUrl}?client_id=${this.clientId}&response_type=code&redirect_uri=${this.redirectUri}&scope=${this.scopes}&state=${state}`;
+      const authUrl = `${this.authUrl}?client_id=${this.clientId}&response_type=code&redirect_uri=${this.redirectUri}&scope=${this.scopes}&state=${state}&approval_prompt=force`;
 
       // 🌍 Redirect the user to Strava's OAuth page
       window.location.href = authUrl;

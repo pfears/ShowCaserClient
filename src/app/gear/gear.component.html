@@ -1,0 +1,26 @@
+<div id="gearCarousel" class="carousel slide" data-bs-ride="gearCarousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+        <div class="carousel-inner">
+            <div *ngFor="let gear of gearList; let i = index" class="carousel-item" [class.active]="i === 0">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">{{gear.BrandName + " " + gear.ModelName}}</h6>
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li><strong>Description:</strong> {{gear.Description || "N/A"}}</li>
+                            <li><strong>Distance:</strong> {{gear.Distance}} Miles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev opacity-0 position-absolute" type="button" data-bs-target="#gearCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next opacity-0 position-absolute" type="button" data-bs-target="#gearCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

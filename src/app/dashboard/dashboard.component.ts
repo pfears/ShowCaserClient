@@ -13,12 +13,14 @@ import { TopPerformancesComponent } from "../top-performances/top-performances.c
 import { Activity } from '../activity/activity.model';
 import { mapListToClass } from '../Helpers/map-to-class';
 import { ActivityComponent } from '../activity/activity.component';
+import { Gear } from '../gear/gear.model';
+import { GearComponent } from "../gear/gear.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [AthleteComponent, AthleteStatsComponent, NgIf, TopPerformancesComponent, ActivityComponent, NgFor],
+  imports: [AthleteComponent, AthleteStatsComponent, NgIf, TopPerformancesComponent, ActivityComponent, NgFor, GearComponent],
 })
 export class DashboardComponent implements OnInit {
 
@@ -27,6 +29,7 @@ export class DashboardComponent implements OnInit {
   athleteStats!: AthleteStats;
   activities!: Activity[];
   tenMostRecentRuns!: Activity[];
+  gear!: Gear[];
 
   init: boolean = false;
 
@@ -50,24 +53,28 @@ export class DashboardComponent implements OnInit {
         this.athlete = athlete;
         this.weatherData = weatherData;
         this.activities = mapListToClass(Activity, activities);
-        // Now that athlete is available, get stats
-        this.stravaService.getAthleteStats(athlete.id).subscribe({
-          next: (athleteStats: { all_run_totals: any; ytd_run_totals: any }) => {
+        const distinctGearIds = [...new Set(this.activities.map(item => item.GearId).filter((id): id is string => id != null))];
+        forkJoin({
+          gearData: this.stravaService.getGearList(distinctGearIds),
+          athleteStats: this.stravaService.getAthleteStats(athlete.id)
+        }).subscribe({
+          next: ({ gearData, athleteStats }) => {
+            this.gear = mapListToClass(Gear, gearData);
             this.athleteStats = new AthleteStats({
               AllTimeStats: new AllTimeStats(athleteStats.all_run_totals),
               YtdStats: new YtdStats(athleteStats.ytd_run_totals),
             });
-            this.tenMostRecentRuns = mapListToClass(Activity, activities.slice(0, 10)); // First 10 Items in the Array
-            // Now everything is ready
+            this.tenMostRecentRuns = mapListToClass(Activity, activities.slice(0, 10));
             this.init = true;
             console.log(this.athlete);
             console.log(this.weatherData);
             console.log(this.activities);
             console.log(this.athleteStats);
             console.log(this.tenMostRecentRuns);
+            console.log(this.gear);
           },
           error: (err: any) => {
-            console.error('Error loading stats', err);
+            console.error('Error loading data', err);
           }
         });
       },

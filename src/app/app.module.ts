@@ -16,6 +16,7 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
 import { AthleteStatsComponent } from './athlete-stats/athlete-stats.component';
 import { TopPerformancesComponent } from './top-performances/top-performances.component';
 import { ActivityComponent } from './activity/activity.component';
+import { GearComponent } from './gear/gear.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ActivityComponent } from './activity/activity.component';
     AthleteStatsComponent,
     TopPerformancesComponent,
     ActivityComponent,
+    GearComponent
   ],
   providers: [
     StravaService,
