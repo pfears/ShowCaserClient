@@ -10,57 +10,58 @@ import { MonthlyStats } from './monthly-stats.model';
 export class MonthlyStatsComponent implements OnInit {
   @Input() monthlyStats!: MonthlyStats[];
 
-
   ngOnInit(): void {
-    Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend
-    );
-    this.buildMonthlyChart();  // Initialize chart when the component is first created
+    Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+    this.buildMonthlyChart();
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['monthlyStatsData'] && this.monthlyStats.length > 0) {
-  //     this.buildMonthlyChart();  // Rebuild the chart if input data changes
-  //   }
-  // }
   buildMonthlyChart(){
     // Prepare chart data
     const labels = this.monthlyStats.map(stat => this.GetMonthName(stat.Month));
     const activityData = this.monthlyStats.map(stat => stat.ActivityCount);
     const milageData = this.monthlyStats.map(stat => stat.MileageCount);
-    // Create the chart
-    // Create the bar chart
-  new Chart('monthlyChart', {
-    type: 'bar', // Set chart type to bar
-    data: {
-      labels: labels, // Labels (months/year)
-      datasets: [{
-        label: 'Activity Count', // Label for the dataset
-        data: activityData, // Data for the chart
-        backgroundColor: 'rgb(75, 192, 192)', // Bar color
-        borderColor: 'rgb(75, 192, 192)', // Border color for bars (optional)
-        borderWidth: 1 // Bar border width (optional)
+    new Chart('monthlyChart', {
+      type: 'bar', // Set chart type to bar
+      
+      data: {
+        labels: labels, // Labels (months/year)
+        datasets: [{
+          label: 'Activity Count', // Label for the dataset
+          data: activityData, // Data for the chart
+          backgroundColor: 'rgb(75, 192, 192)', // Bar color
+          borderColor: 'rgb(75, 192, 192)', // Border color for bars (optional)
+          borderWidth: 1 // Bar border width (optional)
+        },
+        {
+          label: 'Milage Amount', // Label for the dataset
+          data: milageData, // Data for the chart
+          backgroundColor: 'rgb(51, 221, 28)', // Bar color
+          borderColor: 'rgb(51, 221, 28)', // Border color for bars (optional)
+          borderWidth: 1 // Bar border width (optional)
+        },
+      ]
       },
-      {
-        label: 'Milage Amount', // Label for the dataset
-        data: milageData, // Data for the chart
-        backgroundColor: 'rgb(51, 221, 28)', // Bar color
-        borderColor: 'rgb(51, 221, 28)', // Border color for bars (optional)
-        borderWidth: 1 // Bar border width (optional)
-      },
-    ]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true, // Ensures the y-axis starts at 0
-          ticks: {
-            stepSize: 20 // Optional: adjust this to control the steps in the y-axis
+      options: {
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: 'Running Totals By Month' }
+        },
+        responsive: true,
+        scales: {
+          x: {
+            beginAtZero: true,
+            stacked: false,
+            title: {
+              display: true,
+              text: 'Months'
+            }
+          },
+          y: {
+            beginAtZero: true, // Ensures the y-axis starts at 0
           }
         }
       }
-    }
-  });
+    });
   }
 
   public GetMonthName(monthNumber: number): string {

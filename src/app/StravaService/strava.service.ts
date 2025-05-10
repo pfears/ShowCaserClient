@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../Helpers/config.service';
-import { catchError, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, forkJoin, Observable, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,9 +15,9 @@ export class StravaService {
   private tokenUrl: string;
   private apiBaseUrl: string;
   private scopes: string;
-  
-  private AthleteId!: number;
-  private TESTDATA: boolean = true;
+  private UseTestData: boolean;
+
+
 
   constructor(
     private http: HttpClient,
@@ -35,6 +35,7 @@ export class StravaService {
     this.tokenUrl = strava.tokenUrl;
     this.apiBaseUrl = strava.apiBaseUrl;
     this.scopes = strava.scopes;
+    this.UseTestData = strava.UseTestData
   }
 
   //#region Strava Endpoints
@@ -43,7 +44,7 @@ export class StravaService {
    * Fetch authenticated user (athlete) profile
    */
   getAthlete(): Observable<any> {
-    if (this.TESTDATA) {
+    if (this.UseTestData) {
       console.log("Using Athlete Test Data");
       return this.http.get<any[]>('/assets/athleteData.json').pipe(
         catchError(() => of([]))
@@ -61,7 +62,7 @@ export class StravaService {
   }
 
   getAthleteStats(athleteId: number):Observable<any>{
-    if (this.TESTDATA) {
+    if (this.UseTestData) {
       console.log("Using Athlete Stats Test Data");
       return this.http.get<any[]>('/assets/athleteStatsData.json').pipe(
         catchError(() => of([]))
@@ -101,7 +102,7 @@ export class StravaService {
 
   // Function to fetch all activities with pagination keeps calling until no more to get
   getAllActivities(): Observable<any[]> {
-    if (this.TESTDATA) {
+    if (this.UseTestData) {
       console.log("Using Activity Test Data");
       return this.http.get<any[]>('/assets/activitiesData.json').pipe(
         catchError(() => of([]))
@@ -154,7 +155,7 @@ export class StravaService {
   }
   
   getGearList(gearList: string[]): Observable<any[]> {
-    if (this.TESTDATA) {
+    if (this.UseTestData) {
       console.log("Using Gear Test Data");
       return this.http.get<any[]>('/assets/gearData.json').pipe(
         catchError(() => of([]))
