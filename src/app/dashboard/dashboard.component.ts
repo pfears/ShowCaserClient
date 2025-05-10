@@ -5,7 +5,7 @@ import { AthleteComponent } from '../athlete/athlete.component';
 import { AthleteStatsComponent } from "../athlete-stats/athlete-stats.component";
 import { NgFor, NgIf } from '@angular/common';
 import { Athlete } from '../athlete/athlete.model';
-import { forkJoin } from 'rxjs';
+import { filter, forkJoin } from 'rxjs';
 import { Weather } from '../weather-forecast/weather.model';
 import { WeatherForecastService } from '../weather-forecast/weather-forecast.service';
 import { AllTimeStats, AthleteStats, YtdStats } from '../athlete-stats/athlete-stats.model';
@@ -15,12 +15,15 @@ import { mapListToClass } from '../Helpers/map-to-class';
 import { ActivityComponent } from '../activity/activity.component';
 import { Gear } from '../gear/gear.model';
 import { GearComponent } from "../gear/gear.component";
+import { MonthlyStatsComponent } from "../monthly-stats/monthly-stats.component";
+import { MonthlyStats, mapToMonthlyStats } from '../monthly-stats/monthly-stats.model';
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [AthleteComponent, AthleteStatsComponent, NgIf, TopPerformancesComponent, ActivityComponent, NgFor, GearComponent],
+  imports: [AthleteComponent, AthleteStatsComponent, NgIf, TopPerformancesComponent, ActivityComponent, NgFor, GearComponent, MonthlyStatsComponent],
 })
 export class DashboardComponent implements OnInit {
 
@@ -29,6 +32,7 @@ export class DashboardComponent implements OnInit {
   athleteStats!: AthleteStats;
   activities!: Activity[];
   tenMostRecentRuns!: Activity[];
+  PastYearMonthlyStats!: MonthlyStats[];
   gear!: Gear[];
 
   init: boolean = false;
@@ -53,6 +57,7 @@ export class DashboardComponent implements OnInit {
         this.athlete = athlete;
         this.weatherData = weatherData;
         this.activities = mapListToClass(Activity, activities);
+        this.PastYearMonthlyStats = mapToMonthlyStats(this.activities);
         const distinctGearIds = [...new Set(this.activities.map(item => item.GearId).filter((id): id is string => id != null))];
         forkJoin({
           gearData: this.stravaService.getGearList(distinctGearIds),
@@ -71,7 +76,9 @@ export class DashboardComponent implements OnInit {
             console.log(this.activities);
             console.log(this.athleteStats);
             console.log(this.tenMostRecentRuns);
+            console.log(this.PastYearMonthlyStats);
             console.log(this.gear);
+            
           },
           error: (err: any) => {
             console.error('Error loading data', err);
