@@ -12,11 +12,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { StravaAuthCallbackComponent } from './strava-auth-callback/strava-auth-callback.component';
 import { AthleteComponent } from './athlete/athlete.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
-
 import { AthleteStatsComponent } from './athlete-stats/athlete-stats.component';
 import { TopPerformancesComponent } from './top-performances/top-performances.component';
 import { ActivityComponent } from './activity/activity.component';
 import { GearComponent } from './gear/gear.component';
+import { MonthlyStatsComponent } from './monthly-stats/monthly-stats.component';
+import { Chart } from 'chart.js';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { GearComponent } from './gear/gear.component';
     AthleteStatsComponent,
     TopPerformancesComponent,
     ActivityComponent,
-    GearComponent
+    GearComponent,
+    MonthlyStatsComponent,
   ],
   providers: [
     StravaService,

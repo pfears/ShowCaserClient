@@ -1,5 +1,5 @@
 export interface IGear {
-    GearId: number,
+    GearId: string,
     BrandName: string,
     ModelName: string,
     Description: string,
@@ -7,7 +7,7 @@ export interface IGear {
   }
   
   export class Gear implements IGear {
-    GearId: number;
+    GearId: string;
     BrandName: string;
     ModelName: string;
     Description: string;

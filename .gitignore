@@ -42,3 +42,6 @@ testem.log
 Thumbs.db
 src/assets/config.json
 src/assets/activitiesData.json
+/src/assets/athleteData.json
+/src/assets/athleteStatsData.json
+/src/assets/gearData.json

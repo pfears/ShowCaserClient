@@ -6,6 +6,7 @@ import { Modal } from 'bootstrap';
 import { ActivityComponent } from "../activity/activity.component";
 import { NgIf } from '@angular/common';
 import { PrettyFullDatePipe } from "../pipes/pretty-date.pipe";
+import { Gear } from '../gear/gear.model';
 
 @Component({
   selector: 'app-top-performances',
@@ -17,6 +18,7 @@ export class TopPerformancesComponent implements OnInit, AfterViewInit{
   
 
   @Input() Activities!: Activity[];
+  @Input() GearData!: Gear[];
   @ViewChild('PbModal') modalElement!: ElementRef;
   AllTimeTopPerformances!: TopRunPerformances;
   YtdTopPerformances!: TopRunPerformances;

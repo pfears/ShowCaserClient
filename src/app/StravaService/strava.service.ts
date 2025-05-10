@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../Helpers/config.service';
-import { catchError, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, forkJoin, Observable, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,8 +15,9 @@ export class StravaService {
   private tokenUrl: string;
   private apiBaseUrl: string;
   private scopes: string;
-  
-  private AthleteId!: number;
+  private UseTestData: boolean;
+
+
 
   constructor(
     private http: HttpClient,
@@ -34,6 +35,7 @@ export class StravaService {
     this.tokenUrl = strava.tokenUrl;
     this.apiBaseUrl = strava.apiBaseUrl;
     this.scopes = strava.scopes;
+    this.UseTestData = strava.UseTestData
   }
 
   //#region Strava Endpoints
@@ -42,25 +44,40 @@ export class StravaService {
    * Fetch authenticated user (athlete) profile
    */
   getAthlete(): Observable<any> {
-    return this.getValidAccessToken().pipe(
-      switchMap((token) => {
-        if (!token) return of(null);
-        const headers = { Authorization: `Bearer ${token}` };
-        return this.http.get(`${this.apiBaseUrl}/athlete`, { headers });
-      })
-    );
+    if (this.UseTestData) {
+      console.log("Using Athlete Test Data");
+      return this.http.get<any[]>('/assets/athleteData.json').pipe(
+        catchError(() => of([]))
+      );
+    }
+    else {
+      return this.getValidAccessToken().pipe(
+        switchMap((token) => {
+          if (!token) return of(null);
+          const headers = { Authorization: `Bearer ${token}` };
+          return this.http.get(`${this.apiBaseUrl}/athlete`, { headers });
+        })
+      );
+    }
   }
 
   getAthleteStats(athleteId: number):Observable<any>{
-    return this.getValidAccessToken().pipe(
-      switchMap((token) => {
-        if (!token) return of(null);
-        const headers = { Authorization: `Bearer ${token}` };
-        return this.http.get(`${this.apiBaseUrl}/athletes/${athleteId}/stats`, { headers });
-      })
-    );
+    if (this.UseTestData) {
+      console.log("Using Athlete Stats Test Data");
+      return this.http.get<any[]>('/assets/athleteStatsData.json').pipe(
+        catchError(() => of([]))
+      );
+    }
+    else{
+      return this.getValidAccessToken().pipe(
+        switchMap((token) => {
+          if (!token) return of(null);
+          const headers = { Authorization: `Bearer ${token}` };
+          return this.http.get(`${this.apiBaseUrl}/athletes/${athleteId}/stats`, { headers });
+        })
+      );
+    }
   }
-
   getActivity(activityId: number): Observable<any> {
     return this.getValidAccessToken().pipe(
       switchMap((token) => {
@@ -85,10 +102,8 @@ export class StravaService {
 
   // Function to fetch all activities with pagination keeps calling until no more to get
   getAllActivities(): Observable<any[]> {
-    // USE TEST DATA
-    const USE_TEST: boolean = true;
-    if (USE_TEST) {
-      console.log("USING TEST FILE DATA");
+    if (this.UseTestData) {
+      console.log("Using Activity Test Data");
       return this.http.get<any[]>('/assets/activitiesData.json').pipe(
         catchError(() => of([]))
       );
@@ -140,8 +155,16 @@ export class StravaService {
   }
   
   getGearList(gearList: string[]): Observable<any[]> {
-    const gearObservables = gearList.map(gearId => this.getGear(gearId));
-    return forkJoin(gearObservables);
+    if (this.UseTestData) {
+      console.log("Using Gear Test Data");
+      return this.http.get<any[]>('/assets/gearData.json').pipe(
+        catchError(() => of([]))
+      );
+    }
+    else {
+      const gearObservables = gearList.map(gearId => this.getGear(gearId));
+      return forkJoin(gearObservables);
+    }
   }
 
   //#endregion

@@ -3,6 +3,7 @@ import { Activity } from './activity.model';
 import { NgIf } from '@angular/common';
 import { SecondsToTimePipe } from "../pipes/seconds-to-time.pipe";
 import { PrettyFullDatePipe } from "../pipes/pretty-date.pipe";
+import { Gear } from '../gear/gear.model';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { PrettyFullDatePipe } from "../pipes/pretty-date.pipe";
 })
 export class ActivityComponent implements OnInit {
   @Input() activity!: Activity;
+  @Input() gearData!: Gear[];
 
   constructor() {}
   
@@ -22,7 +24,17 @@ export class ActivityComponent implements OnInit {
     }
     else {
       console.log("No Map Detected, Ignoring Map Plotting");
-      
+    }
+  }
+
+  gearLookup(gearId: string): string {
+    if (!!gearId){
+      const Brand = this.gearData.find(gearItem => gearItem.GearId == gearId)!.BrandName;
+      const Model = this.gearData.find(gearItem => gearItem.GearId == gearId)!.ModelName;
+      return Brand + " " + Model;
+    }
+    else {
+      return "Unlisted"
     }
   }
 
