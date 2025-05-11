@@ -18,6 +18,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { GearComponent } from './gear/gear.component';
 import { MonthlyStatsComponent } from './monthly-stats/monthly-stats.component';
 import { Chart } from 'chart.js';
+import { CurrentMonthProgressComponent } from './current-month-progress/current-month-progress.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { Chart } from 'chart.js';
     ActivityComponent,
     GearComponent,
     MonthlyStatsComponent,
+    CurrentMonthProgressComponent
   ],
   providers: [
     StravaService,
