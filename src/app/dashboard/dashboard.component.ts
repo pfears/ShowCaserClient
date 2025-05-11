@@ -17,13 +17,15 @@ import { Gear } from '../gear/gear.model';
 import { GearComponent } from "../gear/gear.component";
 import { MonthlyStatsComponent } from "../monthly-stats/monthly-stats.component";
 import { MonthlyStats, mapToMonthlyStats } from '../monthly-stats/monthly-stats.model';
+import { buildCurrentMonthProgress, CurrentMonthProgress } from '../current-month-progress/current-month-progress.model';
+import { CurrentMonthProgressComponent } from "../current-month-progress/current-month-progress.component";
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [AthleteComponent, AthleteStatsComponent, NgIf, TopPerformancesComponent, ActivityComponent, NgFor, GearComponent, MonthlyStatsComponent],
+  imports: [AthleteComponent, AthleteStatsComponent, NgIf, TopPerformancesComponent, ActivityComponent, NgFor, GearComponent, MonthlyStatsComponent, CurrentMonthProgressComponent],
 })
 export class DashboardComponent implements OnInit {
 
@@ -33,6 +35,7 @@ export class DashboardComponent implements OnInit {
   activities!: Activity[];
   tenMostRecentRuns!: Activity[];
   PastYearMonthlyStats!: MonthlyStats[];
+  CurrentMonthStats!: CurrentMonthProgress[];
   gear!: Gear[];
 
   init: boolean = false;
@@ -58,6 +61,7 @@ export class DashboardComponent implements OnInit {
         this.weatherData = weatherData;
         this.activities = mapListToClass(Activity, activities);
         this.PastYearMonthlyStats = mapToMonthlyStats(this.activities);
+        this.CurrentMonthStats = buildCurrentMonthProgress(this.activities);
         const distinctGearIds = [...new Set(this.activities.map(item => item.GearId).filter((id): id is string => id != null))];
         forkJoin({
           gearData: this.stravaService.getGearList(distinctGearIds),

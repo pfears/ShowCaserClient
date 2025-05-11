@@ -57,7 +57,8 @@ export class MonthlyStatsComponent implements OnInit {
             }
           },
           y: {
-            beginAtZero: true, // Ensures the y-axis starts at 0
+            title: { display: true, text: 'Count / Mileage' },
+            beginAtZero: true
           }
         }
       }
